@@ -2,7 +2,8 @@ import base64
 import selectors
 import socket
 import types
-import tileLoc
+import loc
+import feat
 
 class listener:
     def accept_client_socket(self, listener_socket):
@@ -47,7 +48,7 @@ class listener:
                                 image = base64.b64decode(client_data.input_buffer[5:])
 
                                 client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
-                                client_data.output_buffer = tileLoc.store_feature(image, name, x, y, a).encode("ascii")
+                                client_data.output_buffer = loc.store_feature(image, name, x, y, a).encode("ascii")
                                 print("STORE DONE")
                         else:
                             client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
@@ -60,7 +61,7 @@ class listener:
                     # RESTORE #
                     elif (input_string[:7] == "RESTORE"):
                         # tileLoc.show_all_feature()
-                        client_data.output_buffer = tileLoc.restore_feature().encode("ascii")
+                        client_data.output_buffer = feat.restore_feature().encode("ascii")
                         print("RESTORE DONE")
                     
                     # MATC1 #
@@ -79,7 +80,7 @@ class listener:
 
                                 a = float(input_string[first_semicolon + 1:second_semicolon])
                                 image = base64.b64decode(client_data.input_buffer[5:])
-                                tileLoc.matc0(image, a)
+                                loc.matc0(image, a)
                                 client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
                                 client_data.output_buffer = "MATCHX100Y60,10598.3545,7462.455;MATCH".encode("ascii")
                                 print("MATC1 DONE")
@@ -107,7 +108,7 @@ class listener:
 
                                 a = input_string[first_semicolon + 1:second_semicolon]
                                 image = base64.b64decode(client_data.input_buffer[5:])
-                                tileLoc.matc2(image)
+                                loc.matc2(image)
                                 client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
                                 client_data.output_buffer = "MATCHX100Y60,10598.3545,7462.455;MATCH".encode("ascii")
                                 print("MATC2 DONE")
@@ -137,7 +138,7 @@ class listener:
                                 image = base64.b64decode(client_data.input_buffer[5:])
 
                                 client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
-                                client_data.output_buffer = tileLoc.match_feature(image, a).encode("ascii")
+                                client_data.output_buffer = loc.match_feature(image, a).encode("ascii")
                                 print("MATCH DONE")
                         else:
                             client_data.input_buffer = client_data.input_buffer[len(client_data.input_buffer):]
