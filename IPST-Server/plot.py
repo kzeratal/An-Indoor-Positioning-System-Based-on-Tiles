@@ -124,18 +124,16 @@ def unique():
     plt.show()
 
 def ideal():
-    x = ["Samsung A60", "Sony Xperial II 10"]
+    x = ["Samsung A31", "Sony Xperial II 10"]
     xp = np.arange(len(x))
-    y1 = [96, 98]
+    y1 = [100, 100]
     plt.title("Image Recognition Rate")
     plt.xlabel("Phone Model")
     plt.ylabel("Image Recognition Rate (%)")
     plt.bar([i for i in xp], y1, width = 0.3, hatch = "xxxx", color = "#FFFFFF", edgecolor = "tab:blue")
     plt.xticks(xp, x)
-    axes = plt.gca()
-    axes.set_ylim([0, 100])
     plt.legend()
     plt.show()
 
 if __name__ == "__main__":
-    plot_FNoKS()
+    ideal()

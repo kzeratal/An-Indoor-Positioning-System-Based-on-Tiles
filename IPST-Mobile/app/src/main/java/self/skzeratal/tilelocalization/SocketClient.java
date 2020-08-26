@@ -87,7 +87,7 @@ public class SocketClient extends AsyncTask<String, Void, Void> {
             String payloadSegment;
             socket = new Socket();
             socket.setSoTimeout(60000);
-            socket.connect(new InetSocketAddress("140.123.217.87", 6666));
+            socket.connect(new InetSocketAddress("140.123.97.87", 6666));
             socket.getOutputStream().write("STORE".getBytes());
 
             while (data[1].length() > 0) {
@@ -123,7 +123,7 @@ public class SocketClient extends AsyncTask<String, Void, Void> {
         try {
             socket = new Socket();
             socket.setSoTimeout(5000);
-            socket.connect(new InetSocketAddress("140.123.217.102", 6666));
+            socket.connect(new InetSocketAddress("140.123.97.87", 6666));
             socket.getOutputStream().write("RESTORE".getBytes());
 
             int count = 0;
@@ -161,7 +161,7 @@ public class SocketClient extends AsyncTask<String, Void, Void> {
 
             socket = new Socket();
             socket.setSoTimeout(60000);
-            socket.connect(new InetSocketAddress("140.123.217.102", 6666));
+            socket.connect(new InetSocketAddress("140.123.97.102", 6666));
             socket.getOutputStream().write("MATCH".getBytes());
 
             while (data[1].length() > 0) {

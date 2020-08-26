@@ -115,7 +115,7 @@ public class CameraHandler {
         captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
 
         /* Auto Camera Setting*/
-        captureBuilder.set(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION, -10);
+        captureBuilder.set(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION, 0);
         /* Auto Camera Setting*/
 
         /* Manual Camera Setting*/

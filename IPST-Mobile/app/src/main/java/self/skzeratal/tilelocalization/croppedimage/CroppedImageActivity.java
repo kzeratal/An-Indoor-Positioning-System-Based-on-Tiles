@@ -52,7 +52,7 @@ public class CroppedImageActivity extends Activity implements OnPostExecuted {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_croppedimage);
-        if (angleOfCamera < 45 || var < 100)
+        if (angleOfCamera < 45/* || var < 100*/)
         {
             canQuit = true;
         }
@@ -164,7 +164,7 @@ public class CroppedImageActivity extends Activity implements OnPostExecuted {
             switch (type) {
                 case "Localization":
                     socketClient1.execute("MATC1", croppedImagePayload, String.valueOf(angleOfCamera));
-                    if (angleOfCamera >= 60 && var >= 100)
+                    if (angleOfCamera >= 60/* && var >= 100*/)
                     {
                         socketClient2.execute("MATC2", adjustedImagePayload, String.valueOf(angleOfCamera));
                     }

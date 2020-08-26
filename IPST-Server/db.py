@@ -1,5 +1,5 @@
 from cv2 import cv2 as cv
-from tileLoc import index_of_biggest
+from feat import index_of_biggest
 from matplotlib import pyplot as plt
 import numpy as np
 import glob
@@ -26,7 +26,7 @@ def show_store_database(name):
 
 def show_store_crop_database(name):
     try:
-        for index in range(1, 5):
+        for index in range(1, 6):
             database = pickle.load(open("database\\store\\" + str(index) + "\\" + name + "_database.p", "rb"))
             for feature_set in database:
                 print(feature_set[1] + ", " + str(feature_set[2]))
@@ -45,7 +45,7 @@ def show_match_database(name):
 def create_crop_database(database_type, feature):
     orb = cv.ORB_create(feature)
 
-    for index in range(1, 5):
+    for index in range(1, 6):
         image_names = glob.glob("temp\\store\\" + database_type + "\\" + str(index) + "\\" + "*.png")
         database = [] 
         for image_name in image_names:
@@ -104,6 +104,37 @@ def create_database(database_type, feature):
         feature_set.append(variance)
         database.append(feature_set)
     pickle.dump(database, open("database\\match\\" + database_type + "_database.p", "wb"))
+
+def create_resized_database(database_type, feature):
+    orb = cv.ORB_create(feature)
+
+    image_names = glob.glob("temp\\store\\r\\" + database_type + "\\*.png")
+    database = [] 
+    for image_name in image_names:
+        image = cv.imread(image_name, cv.IMREAD_GRAYSCALE)
+        variance = cv.Laplacian(image, cv.CV_64F).var()
+        _, destination = orb.detectAndCompute(image, None)
+        lastname = image_name[image_name.rfind("\\") + 1:]
+        feature_set = []
+        feature_set.append(destination)
+        feature_set.append(lastname)
+        feature_set.append(variance)
+        database.append(feature_set)
+    pickle.dump(database, open("database\\store\\r\\" + database_type + "_database.p", "wb"))
+
+    image_names = glob.glob("temp\\match\\" + database_type + "\\*.png")
+    database = [] 
+    for image_name in image_names:
+        image = cv.imread(image_name, cv.IMREAD_GRAYSCALE)
+        variance = cv.Laplacian(image, cv.CV_64F).var()
+        _, destination = orb.detectAndCompute(image, None)
+        lastname = image_name[image_name.rfind("\\") + 1:]
+        feature_set = []
+        feature_set.append(destination)
+        feature_set.append(lastname)
+        feature_set.append(variance)
+        database.append(feature_set)
+    pickle.dump(database, open("database\\match\\r\\" + database_type + "_database.p", "wb"))
 
 def create_store_info(name):
     bfm = cv.BFMatcher()
@@ -489,5 +520,6 @@ if __name__ == "__main__":
 
     #create_database("original")
     #create_crop_database("original")
-    create_database("smooth9", 500)
+    #create_database("smooth9", 1000)
+    create_resized_database("smooth9", 1000)
     #create_crop_database("smooth9", 300)

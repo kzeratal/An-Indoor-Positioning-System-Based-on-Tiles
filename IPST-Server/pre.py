@@ -23,7 +23,8 @@ def doesCroppedImageExist(lastname, directory):
             if os.path.exists(directory + "\\3\\" + lastname):
                 if os.path.exists(directory + "\\4\\" + lastname):
                     if os.path.exists(directory + "\\5\\" + lastname):
-                        return True
+                        if os.path.exists(directory + "\\r\\" + lastname):
+                            return True
     return False
 
 def process_image(image, method, size):
@@ -63,12 +64,14 @@ def preprocess(method, size):
             if image is None:
                 image = cv.imread(name)
                 image = process_image(image, method, size)
+            resized_image = cv.resize(image, (500, 500))
             image1, image2, image3, image4, image5 = cropToFivePieces(image)
             cv.imwrite(directory + "\\1\\" + lastname, image1)
             cv.imwrite(directory + "\\2\\" + lastname, image2)
             cv.imwrite(directory + "\\3\\" + lastname, image3)
             cv.imwrite(directory + "\\4\\" + lastname, image4)
             cv.imwrite(directory + "\\5\\" + lastname, image5)
+            cv.imwrite(directory + "\\r\\" + lastname, resized_image)
 
     # match
     names = glob.glob("temp\\match\\original\\*.png")
@@ -96,12 +99,14 @@ def preprocess(method, size):
             if image is None:
                 image = cv.imread(name)
                 image = process_image(image, method, size)
+            resized_image = cv.resize(image, (500, 500))
             image1, image2, image3, image4, image5 = cropToFivePieces(image)
             cv.imwrite(directory + "\\1\\" + lastname, image1)
             cv.imwrite(directory + "\\2\\" + lastname, image2)
             cv.imwrite(directory + "\\3\\" + lastname, image3)
             cv.imwrite(directory + "\\4\\" + lastname, image4)
             cv.imwrite(directory + "\\5\\" + lastname, image5)
+            cv.imwrite(directory + "\\r\\" + lastname, resized_image)
 
 if __name__ == "__main__":
     #preprocess("original", None)
